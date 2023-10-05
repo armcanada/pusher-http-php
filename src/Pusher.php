@@ -405,7 +405,7 @@ class Pusher implements LoggerAwareInterface, PusherInterface
 
         $headers = [
             'Content-Type' => 'application/json',
-            'X-Pusher-Library' => 'pusher-http-php ' . self::$VERSION
+            'X-Pusher-Library' => 'pusher-http-php ' . self::$VERSION,
         ];
 
         $params = array_merge($signature, $query_params);
@@ -436,7 +436,7 @@ class Pusher implements LoggerAwareInterface, PusherInterface
         try {
             $response = $this->client->send($request, [
                 'http_errors' => false,
-                'base_uri' => $this->channels_url_prefix()
+                'base_uri' => $this->channels_url_prefix(),
             ]);
         } catch (ConnectException $e) {
             throw new ApiErrorException($e->getMessage());
@@ -456,7 +456,7 @@ class Pusher implements LoggerAwareInterface, PusherInterface
         }
 
         if (property_exists($result, 'channels')) {
-            $result->channels = get_object_vars($result->channels);
+            $result->channels = gettype($result->channels) === 'array' ? $result->channels : get_object_vars($result->channels);
         }
 
         return $result;
@@ -481,7 +481,7 @@ class Pusher implements LoggerAwareInterface, PusherInterface
 
         $promise = $this->client->sendAsync($request, [
             'http_errors' => false,
-            'base_uri' => $this->channels_url_prefix()
+            'base_uri' => $this->channels_url_prefix(),
         ])->then(function ($response) {
             $status = $response->getStatusCode();
 
@@ -493,7 +493,7 @@ class Pusher implements LoggerAwareInterface, PusherInterface
             $result = json_decode($response->getBody(), null, 512, JSON_THROW_ON_ERROR);
 
             if (property_exists($result, 'channels')) {
-                $result->channels = get_object_vars($result->channels);
+                $result->channels = gettype($result->channels) === 'array' ? $result->channels : get_object_vars($result->channels);
             }
 
             return $result;
@@ -555,7 +555,7 @@ class Pusher implements LoggerAwareInterface, PusherInterface
 
         $headers = [
             'Content-Type' => 'application/json',
-            'X-Pusher-Library' => 'pusher-http-php ' . self::$VERSION
+            'X-Pusher-Library' => 'pusher-http-php ' . self::$VERSION,
         ];
 
         $params = array_merge($signature, $query_params);
@@ -582,7 +582,7 @@ class Pusher implements LoggerAwareInterface, PusherInterface
         try {
             $response = $this->client->send($request, [
                 'http_errors' => false,
-                'base_uri' => $this->channels_url_prefix()
+                'base_uri' => $this->channels_url_prefix(),
             ]);
         } catch (ConnectException $e) {
             throw new ApiErrorException($e->getMessage());
@@ -602,7 +602,7 @@ class Pusher implements LoggerAwareInterface, PusherInterface
         }
 
         if (property_exists($result, 'channels')) {
-            $result->channels = get_object_vars($result->channels);
+            $result->channels = gettype($result->channels) === 'array' ? $result->channels : get_object_vars($result->channels);
         }
 
         return $result;
@@ -623,7 +623,7 @@ class Pusher implements LoggerAwareInterface, PusherInterface
 
         $promise = $this->client->sendAsync($request, [
             'http_errors' => false,
-            'base_uri' => $this->channels_url_prefix()
+            'base_uri' => $this->channels_url_prefix(),
         ])->then(function ($response) {
             $status = $response->getStatusCode();
 
@@ -635,7 +635,7 @@ class Pusher implements LoggerAwareInterface, PusherInterface
             $result = json_decode($response->getBody(), false, 512, JSON_THROW_ON_ERROR);
 
             if (property_exists($result, 'channels')) {
-                $result->channels = get_object_vars($result->channels);
+                $result->channels = gettype($result->channels) === 'array' ? $result->channels : get_object_vars($result->channels);
             }
 
             return $result;
@@ -742,14 +742,14 @@ class Pusher implements LoggerAwareInterface, PusherInterface
 
         $headers = [
             'Content-Type' => 'application/json',
-            'X-Pusher-Library' => 'pusher-http-php ' . self::$VERSION
+            'X-Pusher-Library' => 'pusher-http-php ' . self::$VERSION,
         ];
 
         $response = $this->client->get($path, [
             'query' => $signature,
             'http_errors' => false,
             'headers' => $headers,
-            'base_uri' => $this->channels_url_prefix()
+            'base_uri' => $this->channels_url_prefix(),
         ]);
 
         $status = $response->getStatusCode();
